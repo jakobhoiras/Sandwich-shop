@@ -4,6 +4,7 @@ $db_password = "FaxeKondi1";
 $db = "oci:dbname=//localhost:1521/dbwc";
 $user = $_REQUEST['username'];
 $password = $_REQUEST['password'];
+$password2 = $_REQUEST['password2'];
 
 try {
     $conn = new PDO($db, $db_username, $db_password);
@@ -17,16 +18,20 @@ try {
         <title>Sandwich Shoppen</title>
     </head>
     <?php
-    if ($user != "" and $password != "") {
-        try {
-            $conn->beginTransaction();
-            $stmt = $conn->query("insert into users values('$pid', '$pid2')");
-            $conn->commit();
-            echo "Du er nu oprettet som bruger :)";
-        } catch (Exception $ex) {
-            echo $ex->getMessage();
-            $conn->rollback();
+    if ($password == $password2) {
+        if ($user != "" and $password != "") {
+            try {
+                $conn->beginTransaction();
+                $stmt = $conn->query("insert into as_users values('$user', '$password')");
+                $conn->commit();
+                echo "Du er nu oprettet som bruger :)";
+            } catch (Exception $ex) {
+                echo $ex->getMessage();
+                $conn->rollback();
+            }
         }
+    } else {
+        echo "Passwords do not match, idiot";
     }
     ?>
     <body>
@@ -60,22 +65,18 @@ try {
                 </center>
             </div>
             <div align="center">
-                <img style="height: 400"src="http://abovethelaw.com/wp-content/uploads/2013/11/uncle-sam-we-want-you.jpg">
-                <h1>Oprettelse af ny bruger</h1>
-                Brugernavn:<input type="text" name="username"><br>
-                Adgangskode:<input type="password" name="password"><br>
-                Bekr&#230ft adgangskode:<input type="password"><br>
-                <input type="submit" value="Opret" style="background-color: #F5F6CE; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top-right-radius: 10px;">
-                <a href=sandwichshoppen.php>
-                    <button onmouseover="" style="cursor: pointer; background-color: #F5F6CE; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top-right-radius: 10px;">
-                        Allerede oprettet?</button>
-                </a>
-                <button>
-                    
-                </button>
+                <form>
+                    <table>
+                        <img style="height: 400"src="http://abovethelaw.com/wp-content/uploads/2013/11/uncle-sam-we-want-you.jpg">
+                        <h1>Oprettelse af ny bruger</h1>
+                        <tr><td>Brugernavn:<td><input type="text" name="username"></td></tr>
+                        <tr><td>Adgangskode:<td><input type="password" name="password"></td></tr>
+                        <tr><td>Bekr&#230ft adgangskode:<td><input type="password" name="password2"></td></tr>
+                        <tr>
+                            <td align="center" colspan="2"><input type="submit" value="Opret bruger" style="background-color: #F5F6CE; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top-right-radius: 10px;"></td></tr>
+                    </table></form>
             </div>
         </div>
-
         <div id="footer" style="background-color:#04B431; clear:both; text-align:center;">
             Valby Langgade 36 TLF: 20 78 02 52</div>
     </div>
