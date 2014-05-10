@@ -17,23 +17,6 @@ try {
     <head>
         <title>Sandwich Shoppen</title>
     </head>
-    <?php
-    if ($password == $password2) {
-        if ($user != "" and $password != "") {
-            try {
-                $conn->beginTransaction();
-                $stmt = $conn->query("insert into as_users values('$user', '$password')");
-                $conn->commit();
-                echo "Du er nu oprettet som bruger :)";
-            } catch (Exception $ex) {
-                echo $ex->getMessage();
-                $conn->rollback();
-            }
-        }
-    } else {
-        echo "Passwords do not match, idiot";
-    }
-    ?>
     <body>
         <div id="container">
 
@@ -54,13 +37,13 @@ try {
             <div id="menu" style="background-color:#04B431; width:100%; float:left; text-align:center">
                 <center>
                     <a href="sandwichshoppen.php">
-                        <button onmouseover="" style="width:400; background-color: #029727; cursor: pointer; border: 1px solid #444; border-top-left-radius: 50px;"><font size="6" color="#FFFFFF">Forside</font></button>
+                        <button onmouseover="" style="width:200; background-color: #029727; cursor: pointer; border: 1px solid #444; border-top-left-radius: 50px;"><font size="6" color="#FFFFFF">Forside</font></button>
                     </a>
                     <a href="sandwichshoppen_menu.php">
-                        <button onmouseover="" style="width:400; background-color: #029727; cursor: pointer; border: 1px solid #444;"><font size="6" color="#FFFFFF">Menu</font></button>
+                        <button onmouseover="" style="width:200; background-color: #029727; cursor: pointer; border: 1px solid #444;"><font size="6" color="#FFFFFF">Menu</font></button>
                     </a>
                     <a href="sandwichshoppen_kontakt.php">
-                        <button onmouseover="" style="width:400; background-color: #029727; cursor: pointer; border: 1px solid #444; border-top-right-radius: 50px;"><font size="6" color="FFFFFF">Kontakt Information</font></button> 
+                        <button onmouseover="" style="width:350; background-color: #029727; cursor: pointer; border: 1px solid #444; border-top-right-radius: 50px;"><font size="6" color="FFFFFF">Kontakt Information</font></button> 
                     </a>
                 </center>
             </div>
@@ -72,6 +55,25 @@ try {
                         <tr><td>Brugernavn:<td><input type="text" name="username"></td></tr>
                         <tr><td>Adgangskode:<td><input type="password" name="password"></td></tr>
                         <tr><td>Bekr&#230ft adgangskode:<td><input type="password" name="password2"></td></tr>
+                        <tr><td colspan="2" align="center" style="color: red;">
+                                <?php
+                                if ($password == $password2) {
+                                    if ($user != "" and $password != "") {
+                                        try {
+                                            $conn->beginTransaction();
+                                            $stmt = $conn->query("insert into as_users values('$user', '$password')");
+                                            $conn->commit();
+                                            echo "Du er nu oprettet som bruger :)";
+                                        } catch (Exception $ex) {
+                                            echo "User already excist";
+                                            $conn->rollback();
+                                        }
+                                    }
+                                } else {
+                                    echo "Passwords do not match, idiot.";
+                                }
+                                ?>
+                            </td></tr>
                         <tr>
                             <td align="center" colspan="2"><input type="submit" value="Opret bruger" style="background-color: #F5F6CE; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top-right-radius: 10px;"></td></tr>
                     </table></form>
