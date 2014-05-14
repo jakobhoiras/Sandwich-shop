@@ -1,0 +1,19 @@
+commit 74a9f0cb220fe115432c17ce0a7cfae514219ed7
+Author: JanDickow <fjp124@alumni.ku.dk>
+Date:   Sat May 10 17:06:59 2014 +0200
+
+    Database part 2
+
+commit 675a248e3a4413054149e7cc24865874b01de7a5
+Author: JanDickow <fjp124@alumni.ku.dk>
+Date:   Sat May 10 13:31:53 2014 +0200
+
+    Database Oprettelse
+
+commit 7a54105e5668b6269faf032fb2a70d5da9fbbb3d
+Author: Jakob Rasmussen <fjz601@alumni.ku.dk>
+Date:   Wed May 7 12:27:42 2014 +0200
+
+    Version 1.0
+    
+    With header
