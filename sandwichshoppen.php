@@ -1,12 +1,11 @@
 <?php
-if($_SESSION['loggedin'] == true) {
-    header("location:google.com");
-}
 $db_username = "fjp124";
 $db_password = "FaxeKondi1";
 $db = "oci:dbname=//localhost:1521/dbwc";
 $user = $_REQUEST['username'];
 $password = $_REQUEST['password'];
+$sql = "select password from as_users where username = '" . $user . "'";
+session_start();
 
 try {
     $conn = new PDO($db, $db_username, $db_password);
@@ -17,7 +16,6 @@ try {
 ?>
 
 <html>
-
     <head>
         <title>Sandwich Shoppen</title>
     </head>
@@ -28,30 +26,55 @@ try {
                 Sandwich Shoppen
                 </font>
             </div>
-            <div style="background-color:#04B431; height: 200px; line-height:2; width:40%; float:right; text-align: right;"><form method="post">
-                    <table align="right">
-                        <tr><td>Brugernavn:<td><input name="username"></td></tr>
-                        <tr><td>Adgangskode:<td><input type="password" name="password"></td></tr>
-                        <tr>
-                            <td align="center"><button type="submit" name="Submit1" style="width: 100px; background-color: #029727; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top-right-radius: 10px;">Log ind</button></td>
-                            <td align="center"><a href="sandwichshoppen_login.php">
-                                    <button onmouseover="" style="width: 100px; background-color: #029727; cursor: pointer; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top-right-radius: 10px;">
-                                        Ny bruger?</button>
-                                </a></td></tr>
-                        <tr><td colspan="2" align="center">
-                                <?php
-                                if (isset($_POST['Submit1'])) {
-                                    if ($user != "" and $password != "") {
-                                        try {
-                                            if ($password == 'Jan') {
-                                                echo"Succes";
+            <?php
+            if (isset($_SESSION['bruger'])) {
+                ?>
+                <div style="background-color: #04B431; height: 120px; line-height:2; width:40%; float:right; text-align: right">
+                    <form method="post" action="">
+                        <button type="submit" name="Submit2" onmouseover="" style="background-color: #04B431; width: 100px; height: 50px; font-size: 20px; cursor: pointer; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top-right-radius: 10px;"> Log ud</button>
+                            <?php
+                        if (isset($_POST['Submit2'])) {
+                            session_destroy();
+                            ?><meta http-equiv="refresh" content="0"><?php
+                        }
+                        ?>
+                    </form></div>
+                <?php
+            }
+            if (!isset($_SESSION['bruger'])) {
+                ?>
+                <div style=" background-color: #04B431; height: 120px; line-height:2; width:40%; float:right; text-align: right;">
+                    <form method="post" action="">
+                        <table align="right">
+                            <tr><td>Brugernavn:<td><input name="username"></td></tr>
+                            <tr><td>Adgangskode:<td><input type="password" name="password"></td></tr>
+                            <tr>
+                                <td align="center"><button type="submit" name="Submit1" style="width: 100px; background-color: #029727; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top-right-radius: 10px;">Log ind</button></td>
+                                <td align="center"><a href="sandwichshoppen_login.php">
+                                        <button onmouseover="" style="width: 100px; background-color: #029727; cursor: pointer; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top-right-radius: 10px;">
+                                            Ny bruger?</button>
+                                    </a></td></tr>
+                            <tr><td colspan="2" align="center">
+                                    <?php
+                                    if (isset($_POST['Submit1'])) {
+                                        if ($user != "" and $password != "") {
+                                            try {
+                                                foreach ($conn->query($sql) as $row) {
+                                                    $value = $row[0];
+                                                }
+                                                if ($password == $value) {
+                                                    //echo"Du er nu logget p&#229 :)";
+                                                    $_SESSION['bruger'] = $user;
+                                                    ?><meta http-equiv="refresh" content="0"><?php
+                                                } else {
+                                                    echo "Brugernavn findes ikke, eller password er forkert";
+                                                }
+                                            } catch (Exception $ex) {
+                                                echo "Fail";
                                             }
-                                        } catch (Exception $ex) {
-                                            echo "Fail";
-                                            $conn->rollback();
+                                        } else {
+                                            echo"Du mangler password eller brugernavn";
                                         }
-                                    } else {
-                                        echo"Missing password";
                                     }
                                 }
                                 ?>

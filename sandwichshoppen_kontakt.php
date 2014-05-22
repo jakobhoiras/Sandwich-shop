@@ -34,9 +34,9 @@
                 <tr><td align="center" colspan="2">Valby Langgade 36</td></tr>
                 <tr><td align="center" colspan="2">Bestil gerne i god tid p&#229 f&#248lgende nr.:</td></tr>
                 <tr><td align="center" colspan="2">20780252</td></tr>
-                <tr><td align="right">Mandag-Fredag: </td><td>10.30-15.00</td></tr>
-                <tr><td align="right">L&#248rdag:  </td><td>11.00-14.30</td></tr>
-                <tr><td align="right">S&#248ndag:  </td><td>Lukket</td></tr>
+                <tr><td align="right">Mandag-Fredag: </td><td align="right">10.30-15.00</td></tr>
+                <tr><td align="right">L&#248rdag:  </td><td align="right">11.00-14.30</td></tr>
+                <tr><td align="right">S&#248ndag:  </td><td align="right">Lukket</td></tr>
             </table><center>
                 <img src="http://www.audion.com/system/public/categories/125/images/bread-sandwich.jpg">
             </center>
