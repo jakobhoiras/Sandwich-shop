@@ -32,7 +32,7 @@ try {
                 <div style="background-color: #04B431; height: 120px; line-height:2; width:40%; float:right; text-align: right">
                     <form method="post" action="">
                         <button type="submit" name="Submit2" onmouseover="" style="background-color: #04B431; width: 100px; height: 50px; font-size: 20px; cursor: pointer; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top-right-radius: 10px;"> Log ud</button>
-                            <?php
+                        <?php
                         if (isset($_POST['Submit2'])) {
                             session_destroy();
                             ?><meta http-equiv="refresh" content="0"><?php
@@ -44,16 +44,17 @@ try {
             if (!isset($_SESSION['bruger'])) {
                 ?>
                 <div style=" background-color: #04B431; height: 120px; line-height:2; width:40%; float:right; text-align: right;">
-                    <form method="post" action="">
+                    <form method="post">
                         <table align="right">
                             <tr><td>Brugernavn:<td><input name="username"></td></tr>
                             <tr><td>Adgangskode:<td><input type="password" name="password"></td></tr>
                             <tr>
                                 <td align="center"><button type="submit" name="Submit1" style="width: 100px; background-color: #029727; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top-right-radius: 10px;">Log ind</button></td>
-                                <td align="center"><a href="sandwichshoppen_login.php">
-                                        <button onmouseover="" style="width: 100px; background-color: #029727; cursor: pointer; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top-right-radius: 10px;">
-                                            Ny bruger?</button>
-                                    </a></td></tr>
+                                <td align="center">
+                                    <button type="button" onclick="location.href = 'sandwichshoppen_login.php'" onmouseover="" style="width: 100px; background-color: #029727; cursor: pointer; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top-right-radius: 10px;">
+                                        Ny bruger?</button>
+                                </td>
+                            </tr>
                             <tr><td colspan="2" align="center">
                                     <?php
                                     if (isset($_POST['Submit1'])) {
