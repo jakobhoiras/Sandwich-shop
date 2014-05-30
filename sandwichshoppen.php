@@ -53,7 +53,7 @@ function getThatShit() {
                             ?>
                         </form></div>
                     <?php
-                } else {               
+                } else {
                     ?>
                     <div style="background-color: #04B431; height: 120px; line-height:2; width:40%; float:right; text-align: right">
                         <form method = "post" action = "">
@@ -71,7 +71,7 @@ function getThatShit() {
                                 }
                             }
                             ?>
-                            <button type = "submit" name = "Submit3" onmouseover = "" style = "background-color: #04B431; width: 100px; height: 50px; font-size: 20px; cursor: pointer; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top-right-radius: 10px;"> aabent</button>
+                            <button type = "submit" name = "Submit3" onmouseover = "" style = "background-color: #04B431; width: 100px; height: 50px; font-size: 20px; cursor: pointer; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top-right-radius: 10px;"> &#197ben</button>
                             <?php
                             if (isset($_POST['Submit3'])) {
                                 try {
@@ -87,9 +87,6 @@ function getThatShit() {
                             ?>
                         </form></div>
                     <?php
-                    foreach (getThatShit() as $row) {
-                        echo $row[0];
-                    }
                 }
             }
             if (!isset($_SESSION['bruger'])) {
@@ -144,9 +141,24 @@ function getThatShit() {
                     </a>
                 </center>
             </div>
-            <center>
-                <img src="http://www.audion.com/system/public/categories/125/images/bread-sandwich.jpg">
-            </center>
+            <?php
+            foreach (getThatShit() as $row) {
+                $value = $row[0];
+            }
+            if ($value == 'lukket') {
+                ?>
+                <center>
+                    <img src="http://applemapsmarketing.com/wp-content/uploads/2012/12/closed-for-business.jpg">
+                </center>
+                <?php
+            } else {
+                ?>
+                <center>
+                    <img src="http://www.ksamft.org/ohanaFiles/file/open_for_business.png">
+                </center>
+                <?php
+            }
+            ?>
         </div>
 
         <div id="footer" style="background-color:#04B431; clear:both; text-align:center;">
