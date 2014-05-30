@@ -107,7 +107,7 @@ try {
                                     if ($user != "" and $password != "") {
                                         try {
                                             $conn->beginTransaction();
-                                            $stmt = $conn->query("insert into as_users values('$user', '$password')");
+                                            $stmt = $conn->query("insert into as_users values('$user', '$password', 0)");
                                             $conn->commit();
                                             echo "Du er nu oprettet som bruger :)";
                                         } catch (Exception $ex) {
