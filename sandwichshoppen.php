@@ -5,6 +5,7 @@ $db_password = "FaxeKondi1";
 $db = "oci:dbname=//localhost:1521/dbwc";
 $user = $_REQUEST['username'];
 $password = $_REQUEST['password'];
+$news = $_REQUEST['news'];
 $sql = "select password from as_users where username = '" . $user . "'";
 $sql42 = "select admin from as_users where username = '{$_SESSION['bruger']}'";
 
@@ -18,6 +19,13 @@ try {
 function getThatShit() {
     global $conn;
     $stmt = $conn->prepare("select * from IsItOpen");
+    $stmt->execute();
+    return $stmt->fetchAll();
+}
+
+function getThatShit2() {
+    global $conn;
+    $stmt = $conn->prepare("select status from IsItNews");
     $stmt->execute();
     return $stmt->fetchAll();
 }
@@ -57,12 +65,30 @@ function getThatShit() {
                     ?>
                     <div style="background-color: #04B431; height: 120px; line-height:2; width:40%; float:right; text-align: right">
                         <form method = "post" action = "">
+                            <button type="submit" name="Submit" onmouseover="" style="background-color: #04B431; width: 100px; height: 50px; font-size: 20px; cursor: pointer; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top-right-radius: 10px;"> Log ud</button>
+                            <?php
+                            if (isset($_POST['Submit'])) {
+                                session_destroy();
+                                ?>
+                                <meta http-equiv="refresh" content="0">
+                                <?php
+                            }
+                            ?>
                             <button type = "submit" name = "Submit2" onmouseover = "" style = "background-color: #04B431; width: 100px; height: 50px; font-size: 20px; cursor: pointer; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top-right-radius: 10px;"> Lukket</button>
                             <?php
                             if (isset($_POST['Submit2'])) {
                                 try {
                                     $conn->beginTransaction();
                                     $sql3 = "UPDATE IsItOpen SET Status = 'lukket'";
+                                    $conn->exec($sql3);
+                                    $conn->commit();
+                                } catch (Exception $e) {
+                                    echo 'Caught exception: ', $e->getMessage(), "\n";
+                                    $conn->rollBack();
+                                }
+                                try {
+                                    $conn->beginTransaction();
+                                    $sql3 = "UPDATE IsItNews SET Status = '" . $news . "'";
                                     $conn->exec($sql3);
                                     $conn->commit();
                                 } catch (Exception $e) {
@@ -85,6 +111,8 @@ function getThatShit() {
                                 }
                             }
                             ?>
+                            <br>
+                            Skriv noget til kunderne:<input name="news">
                         </form></div>
                     <?php
                 }
@@ -94,12 +122,12 @@ function getThatShit() {
                 <div style=" background-color: #04B431; height: 120px; line-height:2; width:40%; float:right; text-align: right;">
                     <form method="post">
                         <table align="right">
-                            <tr><td>Brugernavn:<td><input name="username"></td></tr>
+                            <tr><td>E-mail adresse:<td><input name="username"></td></tr>
                             <tr><td>Adgangskode:<td><input type="password" name="password"></td></tr>
                             <tr>
-                                <td align="center"><button type="submit" name="Submit1" style="width: 100px; background-color: #029727; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top-right-radius: 10px;">Log ind</button></td>
+                                <td align="center"><button type="submit" name="Submit1" style="height: 30px; width: 100px; background-color: #029727; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top-right-radius: 10px;">Log ind</button></td>
                                 <td align="center">
-                                    <button type="button" onclick="location.href = 'sandwichshoppen_login.php'" onmouseover="" style="width: 100px; background-color: #029727; cursor: pointer; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top-right-radius: 10px;">
+                                    <button type="button" onclick="location.href = 'sandwichshoppen_login.php'" onmouseover="" style="height: 30px; width: 100px; background-color: #029727; cursor: pointer; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top-right-radius: 10px;">
                                         Ny bruger?</button>
                                 </td>
                             </tr>
@@ -148,6 +176,14 @@ function getThatShit() {
             if ($value == 'lukket') {
                 ?>
                 <center>
+                    <h1>
+                        <?php
+                        foreach (getThatShit2() as $row) {
+                            $value = $row[0];
+                        }
+                        echo $value;
+                        ?>
+                    </h1>
                     <img src="http://applemapsmarketing.com/wp-content/uploads/2012/12/closed-for-business.jpg">
                 </center>
                 <?php

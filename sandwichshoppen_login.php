@@ -3,6 +3,8 @@ $db_username = "fjp124";
 $db_password = "FaxeKondi1";
 $db = "oci:dbname=//localhost:1521/dbwc";
 $user = $_REQUEST['username'];
+$user2 = $_REQUEST['username2'];
+$phone = $_REQUEST['phone'];
 $password = $_REQUEST['password'];
 $password2 = $_REQUEST['password2'];
 $sql = "select password from as_users where username = '" . $user . "'";
@@ -49,9 +51,9 @@ try {
                             <tr><td>Brugernavn:<td><input name="username"></td></tr>
                             <tr><td>Adgangskode:<td><input type="password" name="password"></td></tr>
                             <tr>
-                                <td align="center"><button type="submit" name="Submit1" style="width: 100px; background-color: #029727; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top-right-radius: 10px;">Log ind</button></td>
+                                <td align="center"><button type="submit" name="Submit1" style="height: 30px; width: 100px; background-color: #029727; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top-right-radius: 10px;">Log ind</button></td>
                                 <td align="center">
-                                    <button type="button" onclick="location.href = 'sandwichshoppen_login.php'" onmouseover="" style="width: 100px; background-color: #029727; cursor: pointer; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top-right-radius: 10px;">
+                                    <button type="button" onclick="location.href = 'sandwichshoppen_login.php'" onmouseover="" style="height: 30px; width: 100px; background-color: #029727; cursor: pointer; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top-right-radius: 10px;">
                                         Ny bruger?</button>
                                 </td>
                             </tr>
@@ -98,25 +100,37 @@ try {
                     <table>
                         <img style="height: 400"src="http://abovethelaw.com/wp-content/uploads/2013/11/uncle-sam-we-want-you.jpg">
                         <h1>Oprettelse af ny bruger</h1>
-                        <tr><td>Brugernavn:<td><input type="text" name="username"></td></tr>
+                        <tr><td>E-mail adresse:<td><input type="text" name="username"></td></tr>
+                        <tr><td>Bekr&#230ft e-mail adresse:<td><input type="text" name="username2"></td></tr>
+                        <tr><td>Telefon-nummer:<td><input type="text" name="phone"></td></tr>
+                        <tr><td colspan="2" align="center">*Vi bruger dit telefon-nummer, til at kontakte dig</tr>                        
                         <tr><td>Adgangskode:<td><input type="password" name="password"></td></tr>
                         <tr><td>Bekr&#230ft adgangskode:<td><input type="password" name="password2"></td></tr>
                         <tr><td colspan="2" align="center" style="color: red;">
                                 <?php
                                 if ($password == $password2) {
-                                    if ($user != "" and $password != "") {
-                                        try {
-                                            $conn->beginTransaction();
-                                            $stmt = $conn->query("insert into as_users values('$user', '$password', 0)");
-                                            $conn->commit();
-                                            echo "Du er nu oprettet som bruger :)";
-                                        } catch (Exception $ex) {
-                                            echo "User already excist";
-                                            $conn->rollback();
+                                    if ($user == $user2) {
+                                        if ($user != "" and $password != "" and $phone != "") {
+                                            try {
+                                                $conn->beginTransaction();
+                                                $stmt = $conn->query("insert into as_users values('$user', '$password', 0, $phone)");
+                                                $conn->commit();
+                                                echo "Du er nu oprettet som bruger :)";
+                                            } catch (Exception $ex) {
+                                                if (is_int($phone)) {
+                                                    echo "Bruger findes allerede";
+                                                    $conn->rollback();
+                                                } else {
+                                                    echo "Indtast kun tal i telefon-nummer";
+                                                    $conn->rollback();
+                                                }
+                                            }
                                         }
+                                    } else {
+                                        echo "E-mail matcher ikke";
                                     }
                                 } else {
-                                    echo "Passwords do not match, idiot.";
+                                    echo "Adgangskode matcher ikke";
                                 }
                                 ?>
                             </td></tr>

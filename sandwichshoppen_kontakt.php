@@ -47,9 +47,9 @@ try {
                             <tr><td>Brugernavn:<td><input name="username"></td></tr>
                             <tr><td>Adgangskode:<td><input type="password" name="password"></td></tr>
                             <tr>
-                                <td align="center"><button type="submit" name="Submit1" style="width: 100px; background-color: #029727; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top-right-radius: 10px;">Log ind</button></td>
+                                <td align="center"><button type="submit" name="Submit1" style="height: 30px; width: 100px; background-color: #029727; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top-right-radius: 10px;">Log ind</button></td>
                                 <td align="center">
-                                    <button type="button" onclick="location.href = 'sandwichshoppen_login.php'" onmouseover="" style="width: 100px; background-color: #029727; cursor: pointer; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top-right-radius: 10px;">
+                                    <button type="button" onclick="location.href = 'sandwichshoppen_login.php'" onmouseover="" style="height: 30px; width: 100px; background-color: #029727; cursor: pointer; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top-right-radius: 10px;">
                                         Ny bruger?</button>
                                 </td>
                             </tr>
@@ -95,12 +95,15 @@ try {
                 <tr><td align = "center" colspan = "2">Valby Langgade 36</td></tr>
                 <tr><td align = "center" colspan = "2">Bestil gerne i god tid p&#229 f&#248lgende nr.:</td></tr>
                 <tr><td align = "center" colspan = "2">20780252</td></tr>
-                <tr><td align = "right">Mandag-Fredag: </td><td align = "right">10.30-15.00</td></tr>
-                <tr><td align = "right">L&#248rdag:  </td><td align="right">11.00-14.30</td></tr>
-                <tr><td align = "right">S&#248ndag:  </td><td align="right">Lukket</td></tr>
             </table><center>
                 <img src = "http://www.audion.com/system/public/categories/125/images/bread-sandwich.jpg">
             </center>
+            <table style = "font-size:20px;" align = "center">
+                <tr><td align = "right">Mandag-Fredag: </td><td align = "right">10.30-15.00</td></tr>
+                <tr><td align = "right">L&#248rdag:  </td><td align="right">11.00-14.30</td></tr>
+                <tr><td align = "right">S&#248ndag:  </td><td align="right">Lukket</td></tr>
+            </table>
+
             <div id = "footer" style = "background-color:#04B431;clear:both;text-align:center;">
                 Valby Langgade 36 TLF: 20 78 02 52</div>
 
